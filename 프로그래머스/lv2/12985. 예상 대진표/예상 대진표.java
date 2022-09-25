@@ -12,5 +12,7 @@ class Solution
         }
 
         return answer;
+        // 다른 사람의 미친 풀이
+        // return Integer.toBinaryString((a-1)^(b-1)).length();
     }
 }
