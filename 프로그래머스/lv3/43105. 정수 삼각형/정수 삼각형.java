@@ -2,21 +2,21 @@ import java.util.Arrays;
 
 class Solution {
     public int solution(int[][] triangle) {
+        // 삼각형 높이 구하기
         int     tri_h   = triangle.length;
 
-        int[][] dp      = new int[tri_h][];
-        for (int i = 0; i < tri_h; i++)
-            dp[i] = new int[i + 1];
-
-        dp[0][0] = triangle[0][0];
+        // 0번째 층을 제외하고 시작
         for (int h = 1; h < tri_h; h++) {
-            dp[h][0] = dp[h-1][0] + triangle[h][0];
-            dp[h][h] = dp[h-1][h-1] + triangle[h][h];
+            // 삼각형 변 쪽은 경로가 하나씩 뿐
+            triangle[h][0] += triangle[h-1][0];
+            triangle[h][h] += triangle[h-1][h-1];
+            // 길이 2개 있을 수 있는 경우 두 경로 중 max를 더함
             for (int w = 1; w <= h - 1; w ++) {
-                dp[h][w] = triangle[h][w] + Math.max(dp[h-1][w-1], dp[h-1][w]);
+                triangle[h][w] += Math.max(triangle[h-1][w-1], triangle[h-1][w]);
             }
         }
-        return Arrays.stream(dp[tri_h - 1])
+        // 마지막 층에 값들 중 max
+        return Arrays.stream(triangle[tri_h - 1])
                         .max()
                         .getAsInt();
     }
