@@ -4,13 +4,9 @@ class Solution {
     public int solution(int k, int[] tangerine) {
         // 귤들의 갯수를 카운팅
         // 어떤 [크기]가 배열의 원소로 들어있을지 모르니 Hash를 사용하는 것이 효율적임
-        HashMap<Integer, Integer> tangerineSizeBox = new HashMap<>();
+        HashMap<Integer, Integer> tangerineSizeBox = new HashMap<>(k);
         for (int t : tangerine) {
-            if (tangerineSizeBox.containsKey(t)) {
-                tangerineSizeBox.put(t, tangerineSizeBox.get(t) + 1);
-            } else {
-                tangerineSizeBox.put(t, 1);
-            }
+            tangerineSizeBox.put(t, tangerineSizeBox.getOrDefault(t, 0) + 1);
         }
         
         // 집계한 [크기]별 귤들의 갯수를 내림차순으로 정렬
