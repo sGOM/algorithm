@@ -1,5 +1,7 @@
 import java.util.*;
 
+// 매번 범위내에 수들을 합하면 그 만큼 합연산의 횟수가 많아짐
+// 그래서 맨앞을 빼고 뒤에 새로운 원소만 추가하는 방식을 채택함
 class Solution {
     public int solution(int[] elements) {
         // 나올 수 있는 수열의 합의 종류를 저장하는 set
