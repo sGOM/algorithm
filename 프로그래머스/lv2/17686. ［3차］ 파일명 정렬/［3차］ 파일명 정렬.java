@@ -50,3 +50,32 @@ class Solution {
         return set.toArray(new String[set.size()]);
     }
 }
+
+/* 남이 작성한 굉장히 이쁘고 깔끔한 코드
+// regexp 정의
+// group 1 -> ((a 부터 z 사이) + (공백) + (. 과 -))가 1개 이상 연속
+// group 2 -> (0 부터 9 사이)가 1~5개 연속
+Pattern p = Pattern.compile("([a-z\\s.-]+)([0-9]{1,5})");
+
+Arrays.sort(files, new Comparator<String>() {
+    @Override
+    public int compare(String s1, String s2) {
+        // 비교 대상 문자열 2개를 대소문자 무시하고 Matcher 생성
+        Matcher m1 = p.matcher(s1.toLowerCase());
+        Matcher m2 = p.matcher(s2.toLowerCase());
+        m1.find();
+        m2.find();
+
+        // HEAD 비교(group 1) 했을 때 같지 않다면
+        if(!m1.group(1).equals(m2.group(1))) {
+            // HEAD 순서 반환
+            return m1.group(1).compareTo(m2.group(1));
+        } else {
+            // NUMBER 순서 반환
+            return Integer.parseInt(m1.group(2)) - Integer.parseInt(m2.group(2));
+        }
+    }
+});
+
+return files;
+*/
