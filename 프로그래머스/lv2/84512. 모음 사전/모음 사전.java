@@ -49,3 +49,18 @@ class Solution {
         }
     }
 }
+
+/* 남이 작성한 더 나아 보이는 풀이 
+class Solution {
+    public int solution(String word) {
+        int answer = 0, per = 3905; // per 은 모든 경우의 수 가짓 수
+        // 타겟 문자열을 기반으로 해당 문자열이 몇 번째인지 계산 (수학적 접근)
+        for(String s : word.split("")) answer += "AEIOU".indexOf(s) * (per /= 5) + 1;
+        return answer;
+    }
+}
+
+// 해당 풀이는 최대 5번의 반복문만 실행됨
+// 문제가 변경되면 per을 매번 변경해야하나, 문자의 갯수만 달라진다면 per은 충분히 계산할 수 있음
+// dfs개 좋은 성능 내는 이유는 모든 경우의 수가 3905번 뿐이기 때문
+*/
