@@ -23,3 +23,21 @@ class Solution {
             : Long.parseLong(binaryNum.replace(idx, idx + 2, "10").toString(), 2);
     }
 }
+
+/* 다른 사람의 풀이
+// 동작은 내 풀이와 동일하지만 코드와 실행 속도는 훨씬 좋음
+// answer[i]++;이 가장 처음나오는 0을 1, 그 이전 값을 모두 0으로 바꿈 (ex. 11101111 -> 11110000)
+// (answer[i]^numbers[i])>>>2; 는 (바뀐 비트의 길이 - 2)만큼 1로 채운 값을 생성함 (ex. 00000111)
+// 해당 값을 더 하면 동일한 결과 도출
+
+class Solution {
+    public long[] solution(long[] numbers) {
+        long[] answer = numbers.clone();
+        for(int i = 0; i < answer.length; i++){
+            answer[i]++;
+            answer[i] += (answer[i]^numbers[i])>>>2;
+        }
+        return answer;
+    }
+}
+*/
