@@ -67,5 +67,50 @@ class Solution {
         public int getPlayCount() { return playCount; }
     }
     // 전체 시간 복잡도
-    // O(n * k log k), n = (장르 종류 수), k = (장르 별 노래 수)
+    // O(m + n * n log n), m = (모든 노래 수), n = (장르 종류 수)
 }
+
+/* 다른 사람이 작성한 코드, 굉장히 객체 지향적이고 스트림 활용이 좋음
+public class Solution {
+  // 클래스 선언한 김에 Comparable 까지 구현
+  public class Music implements Comparable<Music>{
+
+    private int played;
+    private int id;
+    private String genre;
+
+    public Music(String genre, int played, int id) {
+      this.genre = genre; 
+      this.played = played;
+      this.id = id;
+    }
+
+    // 여기서는 장르 구분을 안하는데, 그 이유는 밑에 stream에
+    @Override
+    public int compareTo(Music other) {
+      if(this.played == other.played) return this.id - other.id;
+      return other.played - this.played;
+    }
+
+    public String getGenre() {return genre;}
+  }
+
+  public int[] solution(String[] genres, int[] plays) {
+    return IntStream.range(0, genres.length)                    // IntStream    
+    .mapToObj(i -> new Music(genres[i], plays[i], i))           // Stream<Music>
+    .collect(Collectors.groupingBy(Music::getGenre))            // Map<String, List<Music>>
+    .entrySet().stream()                                        // Stream<Map.Entry<String, List<Music>>>
+    .sorted((a, b) -> sum(b.getValue()) - sum(a.getValue()))    // Stream<Map.Entry<String, List<Music>>>
+    .flatMap(x->x.getValue().stream().sorted().limit(2))        // Stream<Music>
+    .mapToInt(x->x.id).toArray();                               // int[]
+  }
+
+  private int sum(List<Music> value) {
+    int answer = 0;
+    for (Music music : value) {
+      answer+=music.played;
+    }
+    return answer;
+  }
+}
+*/
