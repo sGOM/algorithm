@@ -27,6 +27,30 @@ class Solution {
         return answer.toString();
     }
     // 시간 복잡도
-    // O(number.length() + k)
-    // 최악의 상황이라도, 모든 숫자를 끝까지 체크하고 k만큼 추가로 체크함
+    // O(number.length() + k * number.length())
+    // 최악의 상황에는 모든 숫자를 체크하며 k번 삭제함
+    // 이때 삭제하는 answer.deleteCharAt(int index)의 시간 복잡도는 이후의 문자열을 모두 옮겨야하므로 O(number.length)
 }
+
+/* 다른 사람이 작성한 더 좋은 코드
+// 로직 자체는 동일하나, 시간복잡도 O(number.length())이고 가독성도 훨씬 좋음
+import java.util.Stack;
+class Solution {
+    public String solution(String number, int k) {
+        char[] result = new char[number.length() - k];
+        Stack<Character> stack = new Stack<>();
+
+        for (int i=0; i<number.length(); i++) {
+            char c = number.charAt(i);
+            while (!stack.isEmpty() && stack.peek() < c && k-- > 0) {
+                stack.pop();
+            }
+            stack.push(c);
+        }
+        for (int i=0; i<result.length; i++) {
+            result[i] = stack.get(i);
+        }
+        return new String(result);
+    }
+}
+*/
