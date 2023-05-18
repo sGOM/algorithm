@@ -33,4 +33,7 @@ class Solution {
     public int pow(int base, int exp) {
         return (int)Math.pow(base, exp);
     }
+    
+    // 시간복잡도 O(정답 자릿수)
+    // Math.pow도 O(1)이기 때문
 }
