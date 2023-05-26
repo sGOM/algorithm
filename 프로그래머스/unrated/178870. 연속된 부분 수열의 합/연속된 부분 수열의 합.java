@@ -31,3 +31,31 @@ class Solution {
     // O(sequence.length)
     // sequence.length의 2배만큼 반복하기 때문
 }
+
+/* 다른 사람이 작성한 가독성이 더 좋은 코드, 시간 복잡도는 동일하나 기대되는 실행횟수는 더 적고, 이해하기 쉬움
+class Solution {
+    public int[] solution(int[] sequence, int k) {
+        int[] result = new int[2];
+        int start = 0, end = 0;
+        int sum = 0, len = Integer.MAX_VALUE;
+
+        while (end < sequence.length) {
+            sum += sequence[end];
+            end++;
+
+            while (sum > k) {
+                sum -= sequence[start];
+                start++;
+            }
+
+            if (sum == k && end - start < len) {
+                len = end - start;
+                result[0] = start;
+                result[1] = end - 1;
+            }
+        }
+
+        return result;
+    }
+}
+*/
