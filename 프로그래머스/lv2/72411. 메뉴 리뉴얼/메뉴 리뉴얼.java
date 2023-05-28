@@ -19,14 +19,17 @@ class Solution {
         
         // orders를 순회
         for (String o : orders) {
+            // O(n log n), 정렬이 제일 지배적, n = o.length()
             // o를 알파벳 순으로 정렬
             o = Stream.of(o.split(""))
                       .sorted()
                       .collect(Collectors.joining());
+            
             // o가 생성가능한 조합을 카운팅하여 courseCandidates에 적용
             makeCombination(o, "", 0);
         }
         
+        // O(n log n), 정렬이 제일 지배적, n = answer.length
         // courseCandidates와 courseMax를 이용해 각 코스 길이에 해당하는 후보를 반환
         String[] answer = courseCandidates.entrySet().stream()
                             // 해당 코스길이의 최대 출현 횟수인 코스 && 그 횟수가 2 이상
@@ -39,6 +42,7 @@ class Solution {
         return answer;
     }
     
+    // O(max(courseMaxLen!, order.length()!))
     // orders에 담겨 있는 문자열이 각각 알파벳 순으로 정렬되었다고 가정하고 작성함
     public void makeCombination(String order, String comb, int idx) {
         // 만들어진 조합이 원하는 코스 길이에 해당하는 경우
@@ -56,4 +60,8 @@ class Solution {
             makeCombination(order, comb + order.charAt(i), i + 1);
         }
     }
+    
+    // 시간 복잡도
+    // O(orders.length * courseMaxLen!)
+    // orders에 담겨있는 원소들의 문자열 길이에 따라 편차가 크기때문에 정확한 시간 복잡도는 알기 어려움 
 }
