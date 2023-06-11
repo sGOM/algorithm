@@ -1,11 +1,8 @@
 import java.util.*;
 
 class Solution {
-    HashMap<String, Integer> airportNumbering;
+    HashMap<String, LinkedList<String>> flightMap;
     Stack<String> answer;
-    String[][]  flightGraph;
-    boolean[][] isVisited;
-    
     int travelLength;
     
     public String[] solution(String[][] tickets) {
@@ -18,25 +15,11 @@ class Solution {
     }
     
     public void init(String[][] tickets) {
-        HashMap<String, ArrayList<String>> flightMap = new HashMap<>();
+        flightMap = new HashMap<>();
         for (String[] ticket : tickets) {
             String departure    = ticket[0];
             String destination  = ticket[1];
-            flightMap.computeIfAbsent(departure, (k) -> new ArrayList<>()).add(destination);
-        }
-        
-        airportNumbering = new HashMap<>();
-        flightGraph = new String[flightMap.size()][];
-        isVisited   = new boolean[flightMap.size()][];
-        int index = 0;
-        for (Map.Entry<String, ArrayList<String>> ent : flightMap.entrySet()) {
-            String              departure     = ent.getKey();
-            ArrayList<String>   destinations  = ent.getValue();
-            
-            airportNumbering.put(departure, index);
-            flightGraph[index]  = destinations.stream().sorted().toArray(String[]::new);
-            isVisited[index]    = new boolean[flightGraph[index].length];
-            index++;
+            flightMap.computeIfAbsent(departure, (k) -> new LinkedList<>()).add(destination);
         }
         
         answer = new Stack<>();
@@ -44,22 +27,15 @@ class Solution {
     }
     
     public void searchTravelCourse() {
-        if (airportNumbering.get(answer.peek()) == null) return;
-        int curAirportNum = airportNumbering.get(answer.peek());
+        LinkedList<String> destinations = flightMap.get(answer.peek());
+        if (destinations == null) return;
         
-        for (int i = 0; i < flightGraph[curAirportNum].length; i++) {
-            String destination = flightGraph[curAirportNum][i];
-            
-            if (!isVisited[curAirportNum][i]) {
-                isVisited[curAirportNum][i] = true;
-                answer.push(destination);
-                
-                searchTravelCourse();
-                if (travelLength == answer.size()) return;
-
-                isVisited[curAirportNum][i] = false;
-                answer.pop();
-            }
+        for (String d : destinations.stream().sorted().toArray(String[]::new)) {
+            destinations.remove(d);
+            answer.push(d);
+            searchTravelCourse();
+            if (travelLength == answer.size()) return;
+            destinations.add(d);
         } 
     }
 }
