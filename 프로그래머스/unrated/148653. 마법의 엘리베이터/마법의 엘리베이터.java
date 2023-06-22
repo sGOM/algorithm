@@ -31,3 +31,19 @@ class Solution {
     // 전체 시간복잡도
     // O(n), n = (storey 자릿수)
 }
+
+/* 더 깔끔한 풀이
+        int answer = 0;
+        while (storey != 0) {
+            int upperNumber = (storey %100)/10;
+            int number = storey % 10;
+            if (number > 5 || number == 5 && upperNumber>=5) {
+                storey += 10;
+                answer += (10 - number);
+            } else {
+                answer += number;
+            }
+            storey = storey / 10;
+        }  
+        return answer;
+*/
