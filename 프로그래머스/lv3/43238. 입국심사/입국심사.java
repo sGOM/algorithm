@@ -6,17 +6,10 @@ class Solution {
         // 오름차순 정렬
         Arrays.sort(times);
         
-        long low = 0L;
-        long high = 1L;
+        long low = (long)times[0];
+        long high = (long)times[0] * n;
         
-        // O(k * log a), k = times.length, a = (모든 사람이 심사를 받는데 걸리는 최소 시간, 정답)
-        // 탐색 범위 설정
-        while (getPassCount(times, high) < n) {
-            low = high;
-            high *= 2;
-        }
-        
-        // O(log i), i = (high - low)
+        // O(k * log i), k = time.length, i = (min(times) * n)
         // 이분 탐색
         while (low < high) {
             long mid = (high + low) / 2L;
@@ -43,5 +36,5 @@ class Solution {
     }
     
     // 시간 복잡도
-    // O(k * log a), k = times.length, a = (모든 사람이 심사를 받는데 걸리는 최소 시간, 정답)
+    // O(k * log i), k = time.length, i = (min(times) * n)
 }
