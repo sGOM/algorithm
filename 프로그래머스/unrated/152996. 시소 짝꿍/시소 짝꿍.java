@@ -1,6 +1,7 @@
 import java.util.*;
 
 class Solution {
+    // double을 기반으로하는 분수(소수)를 이용하지 않는 이유는 [부동 소수점 정밀도] 때문
     final int[][] combinations = {
         {1, 1},         // *m - *m
         {2, 3}, {1, 2}, // 2m - 3m, 2m - 4m
